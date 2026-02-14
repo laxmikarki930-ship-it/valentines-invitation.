@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Question ❤️</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <style>
+        body {
+            margin: 0; height: 100vh; display: flex;
+            justify-content: center; align-items: center;
+            background-color: #fff0f3; font-family: 'Poppins', sans-serif;
+            overflow: hidden; text-align: center;
+        }
+        #container { padding: 20px; z-index: 10; }
+        h1 { color: #ff4d6d; font-size: 2.2rem; line-height: 1.4; }
+        .buttons { margin-top: 30px; position: relative; height: 100px; }
+        
+        .btn {
+            padding: 15px 35px; font-size: 1.2rem; border-radius: 50px;
+            border: none; cursor: pointer; transition: 0.3s;
+            position: absolute; font-weight: bold;
+        }
+        #yesBtn { background-color: #ff4d6d; color: white; left: 50%; transform: translateX(-110%); }
+        #noBtn { background-color: #590d22; color: white; left: 50%; transform: translateX(10%); }
+        
+        #celebration { display: none; }
+        .success-msg { color: #ff4d6d; font-size: 1.5rem; animation: pop 0.5s ease-out; }
+        @keyframes pop { 0% { transform: scale(0); } 100% { transform: scale(1); } }
+        
+        img { width: 200px; border-radius: 20px; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+    <div style="position:absolute; top:-9999px;"><div id="player"></div></div>
+
+    <div id="askSection">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHIyc3Zqam1ueG9qamZ4bm40bm5xbmZ4bm5xbmZ4bm5xbmZ4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/v0Y8yFv412SAs9L1A5/giphy.gif" alt="Cute Bear">
+        <h1>Hi, it's Valentine's Day... ❤️<br>
+        I just want to express my love for you and see you smile.<br>
+        Will you please join me later this evening?</h1>
+        
+        <div class="buttons">
+            <button id="yesBtn" class="btn" onclick="sayYes()">Yes!</button>
+            <button id="noBtn" class="btn" onmouseover="moveNo()" onclick="moveNo()">No</button>
+        </div>
+    </div>
+
+    <div id="celebration">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHR0cXZyZ3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/L4lvBpsWZCZpNLXpA8/giphy.gif" alt="Happy Dance">
+        <div class="success-msg">
+            <h2>Yay! Can't wait to see you! 😍</h2>
+            <p>I have made something very special for later.<br>I'll be waiting for you.</p>
+        </div>
+    </div>
+
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        let player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '0', width: '0', videoId: 'D-YDEyuDx_E', // Love Nwantiti
+                playerVars: { 'autoplay': 0, 'loop': 1, 'playlist': 'D-YDEyuDx_E' }
+            });
+        }
+
+        function moveNo() {
+            const noBtn = document.getElementById('noBtn');
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+        }
+
+        function sayYes() {
+            document.getElementById('askSection').style.display = 'none';
+            document.getElementById('celebration').style.display = 'block';
+            
+            // Start Music
+            if(player) { player.playVideo(); }
+
+            // Explosive Confetti
+            var end = Date.now() + (5 * 1000);
+            (function frame() {
+                confetti({
+                    particleCount: 3,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: ['#ff4d6d', '#ffffff']
+                });
+                confetti({
+                    particleCount: 3,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: ['#ff4d6d', '#ffffff']
+                });
+                if (Date.now() < end) { requestAnimationFrame(frame); }
+            }());
+        }
+    </script>
+</body>
+</html>
